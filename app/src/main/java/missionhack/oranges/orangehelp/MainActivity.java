@@ -13,7 +13,5 @@ public class MainActivity extends AppCompatActivity {
         MyFirebaseInstanceIDService service = new MyFirebaseInstanceIDService();
         Intent serviceIntent = new Intent(this, MyFirebaseInstanceIDService.class);
         startService(serviceIntent);
-        AlertSender sender = new AlertSender();
-        //sender.execute();
     }
 }
