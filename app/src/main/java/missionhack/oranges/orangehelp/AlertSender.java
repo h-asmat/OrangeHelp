@@ -1,6 +1,16 @@
 package missionhack.oranges.orangehelp;
 
-import java.io.InputStream;
+import android.os.AsyncTask;
+
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+
+import java.io.BufferedOutputStream;
+import java.io.BufferedWriter;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by Owner on 3/17/2018.
@@ -8,27 +18,18 @@ import java.io.InputStream;
 
 public class AlertSender {
 
-    public void sendAlert(){
-       /* HttpClient httpclient = HttpClients.createDefault();
-        HttpPost httppost = new HttpPost("http://www.a-domain.com/foo/");
+    public AlertSender(){
+       /* int TIMEOUT_MILLISEC = 10000;  // = 10 seconds
+        String postMessage="{}"; //HERE_YOUR_POST_STRING.
+        HttpParams httpParams = new BasicHttpParams();
+        HttpConnectionParams.setConnectionTimeout(httpParams, TIMEOUT_MILLISEC);
+        HttpConnectionParams.setSoTimeout(httpParams, TIMEOUT_MILLISEC);
+        HttpClient client = new DefaultHttpClient(httpParams);
 
-// Request parameters and other properties.
-        List<NameValuePair> params = new ArrayList<NameValuePair>(2);
-        params.add(new BasicNameValuePair("param-1", "12345"));
-        params.add(new BasicNameValuePair("param-2", "Hello!"));
-        httppost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
-
-//Execute and get the response.
-        HttpResponse response = httpclient.execute(httppost);
-        HttpEntity entity = response.getEntity();
-
-        if (entity != null) {
-            InputStream instream = entity.getContent();
-            try {
-                // do something useful
-            } finally {
-                instream.close();
-            }
-        }*/
+        HttpPost request = new HttpPost(serverUrl);
+        request.setEntity(new ByteArrayEntity(
+                postMessage.toString().getBytes("UTF8")));
+        HttpResponse response = client.execute(request);*/
     }
+
 }
