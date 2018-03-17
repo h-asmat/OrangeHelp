@@ -11,6 +11,8 @@
         android:layout_width="142dp"
         android:layout_height="158dp"
         android:layout_marginBottom="138dp"
+        android:adjustViewBounds="false"
+        android:cropToPadding="false"
         android:onClick="getSpeechInput"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,11 +22,16 @@
 
     <TextView
         android:id="@+id/thetext"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="120dp"
+        android:padding="25dp"
+        android:text="Welcome, tap on the microphone"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/imageView5"
-        app:layout_constraintStart_toStartOf="@+id/imageView5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 
