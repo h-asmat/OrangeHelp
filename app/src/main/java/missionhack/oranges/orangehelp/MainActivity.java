@@ -17,6 +17,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyFirebaseInstanceIDService service = new MyFirebaseInstanceIDService();
+        Intent serviceIntent = new Intent(this, MyFirebaseInstanceIDService.class);
+        startService(serviceIntent);
+        AlertSender sender = new AlertSender();
+        //sender.execute();
         finalText = (TextView) findViewById(R.id.thetext);
     }
     public void getSpeechInput(View view){
