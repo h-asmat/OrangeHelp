@@ -1,9 +1,16 @@
 package missionhack.oranges.orangehelp;
 
+import android.*;
 import android.Manifest;
-
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -15,8 +22,13 @@ import android.view.View;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+
+import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -46,6 +58,8 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         alert.setAlertReceivedListener(this);
         Log.d(TAG, "Creating message receiver");
         messageReceiver = new FirebaseMessageReceiver();
+        Intent serviceIntent = new Intent(MainActivity.this, FirebaseMessageReceiver.class);
+        startService(serviceIntent);
         createToken();
     }
 
@@ -60,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         if (l != null) {
             lat = l.getLatitude();
             lon = l.getLongitude();
-            Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
         }
 
         alertSender = new AlertSender();
@@ -75,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         Intent serviceIntent = new Intent(this, FirebaseTokenGenerator.class);
         startService(serviceIntent);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+        Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
         Log.d(TAG, "onTokenRefresh, token is:  " + preferences.getString("FIREBASETOKEN", ""));
 
     }
