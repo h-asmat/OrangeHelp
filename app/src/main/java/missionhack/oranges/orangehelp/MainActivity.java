@@ -49,12 +49,13 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         Log.d(TAG, "Creating message receiver");
         messageReceiver = new FirebaseMessageReceiver();
         createToken();
-        try {
+        /*try {
             testSendingAlert();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
+
     // Get the x and y position after the button is draw on screen
 // (It's important to note that we can't get the position in the onCreate(),
 // because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
