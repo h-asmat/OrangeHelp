@@ -34,6 +34,9 @@ Get emergency help from people around you. On new planet, we want people around 
 ## Resources:
 
 https://github.com/smartherd/SpeechToText/
+
 https://www.flaticon.com/free-icon/fire_394631#term=fire&page=1&position=14
+
 https://www.flaticon.com/free-icon/siren_550057#term=siren&page=1&position=31
+
 https://www.flaticon.com/free-icon/astronaut_124625#term=astronaut&page=1&position=42
