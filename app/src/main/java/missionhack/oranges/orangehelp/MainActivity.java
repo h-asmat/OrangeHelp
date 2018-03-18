@@ -37,9 +37,9 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements OnAlertReceivedListener{
 
     private static final String TAG = "MainActivity";
-    private static final String FIRE_DISTRESS_CALL = "FIRE";
-    private static final String CONFLICT_DISTRESS_CALL = "CONFLICT";
-    private static final String MEDICAL_DISTRESS_CALL = "MEDICAL";
+    private static final String FIRE_DISTRESS_CALL = "KIWI";
+    private static final String CONFLICT_DISTRESS_CALL = "MANGO";
+    private static final String MEDICAL_DISTRESS_CALL = "APPLE";
     private Occupation occupation;
 
     FirebaseMessageReceiver messageReceiver;
