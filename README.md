@@ -33,6 +33,7 @@ Get emergency help from people around you. On new planet, we want people around 
 
 ## Resources:
 
+
 https://github.com/smartherd/SpeechToText/
 
 https://www.flaticon.com/free-icon/fire_394631#term=fire&page=1&position=14
