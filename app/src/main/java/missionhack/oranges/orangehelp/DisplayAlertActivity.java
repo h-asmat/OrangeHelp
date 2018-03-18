@@ -2,6 +2,8 @@ package missionhack.oranges.orangehelp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,13 @@ public class DisplayAlertActivity extends AppCompatActivity {
         messageTextView.setText(alert.getAlertMessage());
         setAlertIcon();
         setAlertTitle();
+        Button viewMapButton = (Button) findViewById(R.id.viewmapbutton);
+        viewMapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // launch map activity here
+            }
+        });
     }
 
     private void setAlertTitle() {

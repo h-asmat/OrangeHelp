@@ -19,6 +19,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -26,24 +27,29 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     private TextView finalText;
 
     private static final String TAG = "MainActivity";
+    private static final String FIRE_DISTRESS_CALL = "FIRE";
+    private static final String CONFLICT_DISTRESS_CALL = "CONFLICT";
+    private static final String MEDICAL_DISTRESS_CALL = "MEDICAL";
+
     FirebaseMessageReceiver messageReceiver;
     AlertSender alertSender;
     Alert alert = Alert.getInstance();
+    DataFetcher dataFetcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        dataFetcher = new DataFetcher();
         alert.setAlertReceivedListener(this);
         Log.d(TAG, "Creating message receiver");
         messageReceiver = new FirebaseMessageReceiver();
         createToken();
-        try {
+        /*try {
             testSendingAlert();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     private void testSendingAlert() throws InterruptedException {
@@ -89,7 +95,19 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
             case 10 :
                 if (resultCode == RESULT_OK && data != null) {
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    finalText = (TextView) findViewById(R.id.thetext);
                     finalText.setText(result.get(0));
+                    // pass the word from here to the database
+                    if (result.get(0).toUpperCase().equals(FIRE_DISTRESS_CALL.toUpperCase())) {
+                        String token = null;
+                        try {
+                            token = dataFetcher.getToken();
+                            // token = dataFetcher.getTokensFromOccupation(Occupation.Fireman);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        Log.d(TAG, "onActivityResult: TOKEN IS: " + token);
+                    }
                 }
                 break;
 
