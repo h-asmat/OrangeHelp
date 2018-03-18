@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
                 }
                 break;
 
-         }
+        }
     }
 
     private void checkWordAgainstDatabase(String word) throws InterruptedException {

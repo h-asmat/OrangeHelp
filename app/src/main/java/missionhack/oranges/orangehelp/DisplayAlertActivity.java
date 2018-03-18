@@ -1,5 +1,6 @@
 package missionhack.oranges.orangehelp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +24,8 @@ public class DisplayAlertActivity extends AppCompatActivity {
         viewMapButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // launch map activity here
+                Intent mapIntent = new Intent(DisplayAlertActivity.this, MapsActivity.class);
+                startActivity(mapIntent);
             }
         });
     }
