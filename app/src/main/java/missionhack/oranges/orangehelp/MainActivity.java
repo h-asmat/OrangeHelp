@@ -56,8 +56,19 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
 
     private void sendAlert(String token, Occupation occupation) throws InterruptedException {
         Log.d(TAG, "sendAlert: Creating AlertSender and sending it an alert");
+        GPStracker g = new GPStracker(getApplicationContext());
+        Location l = g.getLocation();
+        System.out.println(l);
+        double lat = 0;
+        double lon = 0;
+        if (l != null) {
+            lat = l.getLatitude();
+            lon = l.getLongitude();
+            Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
+        }
+
         alertSender = new AlertSender();
-        alertSender.sendAlert(token, occupation);
+        alertSender.sendAlert(token, occupation, lat, lon);
     }
 
     private void createToken() {
@@ -87,14 +98,6 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
             Toast.makeText(this, "Your device does not support speech input", Toast.LENGTH_SHORT).show();
         }
 
-        GPStracker g = new GPStracker(getApplicationContext());
-        Location l = g.getLocation();
-        System.out.println(l);
-        if (l != null) {
-            double lat = l.getLatitude();
-            double lon = l.getLongitude();
-            Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
-        }
     }
 
     @Override

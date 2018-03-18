@@ -16,8 +16,21 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
     public  FirebaseMessageReceiver(){}
 
     private String getMessageFromData(RemoteMessage remoteMessage){
-        String message = remoteMessage.getData().toString().split("=")[1].replace("}", "");
+        String[] messageComponents = remoteMessage.getData().toString().split(",");
+        String message = messageComponents[2].split("=")[1].replace("}", "");
         return message;
+    }
+
+    private double getLatFromData(RemoteMessage remoteMessage){
+        String[] messageComponents = remoteMessage.getData().toString().split(",");
+        String lat = messageComponents[0].split("=")[1];
+        return Double.parseDouble(lat);
+    }
+
+    private double getLongFromData(RemoteMessage remoteMessage){
+        String[] messageComponents = remoteMessage.getData().toString().split(",");
+        String longitude = messageComponents[1].split("=")[1];
+        return Double.parseDouble(longitude);
     }
 
     @Override public void onMessageReceived(RemoteMessage remoteMessage)
@@ -26,6 +39,8 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
         Log.d(TAG, "Message received!!! [" + remoteMessage.getData() + "]");
         if (alert != null) {
             alert.setAlertMessage(getMessageFromData(remoteMessage));
+            alert.setLatitude(getLatFromData(remoteMessage));
+            alert.setLongitude(getLongFromData(remoteMessage));
             if (getMessageFromData(remoteMessage).contains("fire")){
                 alert.setOccupation(Occupation.Fireman);
             }
@@ -35,6 +50,7 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
             else if (getMessageFromData(remoteMessage).contains("conflict")){
                 alert.setOccupation(Occupation.Cop);
             }
+            alert.raiseAlertReceivedEvent();
         }
 /*
         //notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
