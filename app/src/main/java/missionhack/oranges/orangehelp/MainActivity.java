@@ -28,8 +28,10 @@ import android.widget.Toast;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 
+import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Locale;
+
 
 
 public class MainActivity extends AppCompatActivity implements OnAlertReceivedListener{
@@ -100,7 +102,6 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
             startActivity(alertIntent);
 
     }
-
     public void getSpeechInput(View view){
 
         Intent intent  = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -113,7 +114,6 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         else{
             Toast.makeText(this, "Your device does not support speech input", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     @Override
