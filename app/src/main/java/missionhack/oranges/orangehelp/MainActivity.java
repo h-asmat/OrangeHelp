@@ -1,25 +1,14 @@
 package missionhack.oranges.orangehelp;
 
-import android.app.Activity;
-import android.content.Context;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.content.Intent;
-import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -30,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     private static final String FIRE_DISTRESS_CALL = "FIRE";
     private static final String CONFLICT_DISTRESS_CALL = "CONFLICT";
     private static final String MEDICAL_DISTRESS_CALL = "MEDICAL";
+    private Occupation occupation;
 
     FirebaseMessageReceiver messageReceiver;
     AlertSender alertSender;
@@ -46,16 +36,16 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         messageReceiver = new FirebaseMessageReceiver();
         createToken();
         /*try {
-            testSendingAlert();
+            sendAlert();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }*/
     }
 
-    private void testSendingAlert() throws InterruptedException {
-        Log.d(TAG, "testSendingAlert: Creating AlertSender and sending it an alert");
+    private void sendAlert(String token, Occupation occupation) throws InterruptedException {
+        Log.d(TAG, "sendAlert: Creating AlertSender and sending it an alert");
         alertSender = new AlertSender();
-        alertSender.sendAlert(alertSender.HILAL_TOKEN, Occupation.Doctor);
+        alertSender.sendAlert(token, occupation);
     }
 
     private void createToken() {
@@ -97,20 +87,49 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
                     ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     finalText = (TextView) findViewById(R.id.thetext);
                     finalText.setText(result.get(0));
-                    // pass the word from here to the database
-                    if (result.get(0).toUpperCase().equals(FIRE_DISTRESS_CALL.toUpperCase())) {
-                        String token = null;
-                        try {
-                            token = dataFetcher.getToken();
-                            // token = dataFetcher.getTokensFromOccupation(Occupation.Fireman);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        Log.d(TAG, "onActivityResult: TOKEN IS: " + token);
+                    try {
+                        checkWordAgainstDatabase(result.get(0));
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     }
+
+
                 }
                 break;
 
          }
+    }
+
+    private void checkWordAgainstDatabase(String word) throws InterruptedException {
+        String token = null;
+        // pass the word from here to the database
+        if (word.toUpperCase().equals(FIRE_DISTRESS_CALL.toUpperCase())) {
+            try {
+                occupation = Occupation.Fireman;
+                token = dataFetcher.getToken(Occupation.Fireman);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (word.toUpperCase().equals(CONFLICT_DISTRESS_CALL.toUpperCase())){
+            try {
+                occupation = Occupation.Cop;
+                token = dataFetcher.getToken(Occupation.Cop);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        else if (word.toUpperCase().equals(MEDICAL_DISTRESS_CALL.toUpperCase())) {
+            try {
+                occupation = Occupation.Doctor;
+                token = dataFetcher.getToken(Occupation.Doctor);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        Log.d(TAG, "onActivityResult: TOKEN IS: " + token);
+        if (token!=null) {
+            sendAlert(token, occupation);
+        }
     }
 }

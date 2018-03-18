@@ -45,9 +45,9 @@ public class DataFetcher implements Protocols{
 		}
 	}
 
-	public static String getToken() {
+	public static String getToken(Occupation occupation) {
 		String token = "";
-		String urlString = getURLFromOccupation(Occupation.Doctor);
+		String urlString = getURLFromOccupation(occupation);
 		AsyncTask<String, Void, String> getRequest = new GetClient().execute(urlString);
 		try {
 			String result = getRequest.get();
