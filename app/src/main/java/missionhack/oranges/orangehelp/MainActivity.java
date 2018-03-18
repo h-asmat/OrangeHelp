@@ -47,5 +47,8 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
          }
+        MyFirebaseInstanceIDService service = new MyFirebaseInstanceIDService();
+        Intent serviceIntent = new Intent(this, MyFirebaseInstanceIDService.class);
+        startService(serviceIntent);
     }
 }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "358244299880",
+    "firebase_url": "https://orangehelp-99f5d.firebaseio.com",
+    "project_id": "orangehelp-99f5d",
+    "storage_bucket": "orangehelp-99f5d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:358244299880:android:0427c47340d9bc45",
+        "android_client_info": {
+          "package_name": "missionhack.oranges.orangehelp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "358244299880-70dt0s26e6dv53oe57lr9aa89jla66ps.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbI_7d3JECqbWao-F6FP6fXglpjdu4G54"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
