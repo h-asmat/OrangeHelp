@@ -76,11 +76,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public BitmapDescriptor getAppropriateResource() {
         switch (alert.getOccupation()){
             case Doctor:
-                return BitmapDescriptorFactory.fromResource(R.mipmap.medical_kit);
+                return BitmapDescriptorFactory.fromResource(R.mipmap.medical_s);
             case Fireman:
-                return BitmapDescriptorFactory.fromResource(R.mipmap.fire);
+                return BitmapDescriptorFactory.fromResource(R.mipmap.fire_s);
             case Cop:
-                return BitmapDescriptorFactory.fromResource(R.mipmap.siren);
+                return BitmapDescriptorFactory.fromResource(R.mipmap.siren_s);
             default:
                 return BitmapDescriptorFactory.defaultMarker();
         }

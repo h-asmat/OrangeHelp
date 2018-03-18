@@ -49,13 +49,13 @@ public class DisplayAlertActivity extends AppCompatActivity {
         ImageView image = (ImageView) findViewById(R.id.alertIcon);
         switch (alert.getOccupation()){
             case Cop:
-                image.setImageResource(R.mipmap.siren);
+                image.setImageResource(R.mipmap.siren_l);
                 break;
             case Doctor:
-                image.setImageResource(R.mipmap.medical_kit);
+                image.setImageResource(R.mipmap.medical_l);
                 break;
             case Fireman:
-                image.setImageResource(R.mipmap.fire);
+                image.setImageResource(R.mipmap.fire_l);
                 break;
         }
 
