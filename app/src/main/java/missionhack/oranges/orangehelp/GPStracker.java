@@ -34,8 +34,8 @@ public class GPStracker implements LocationListener {
             return l;
         } else {
             Toast.makeText(context, "Please enable GPS", Toast.LENGTH_LONG).show();
+            return null;
         }
-        return null;
     }
 
     @Override

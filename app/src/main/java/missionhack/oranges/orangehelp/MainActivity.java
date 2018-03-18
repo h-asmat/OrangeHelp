@@ -28,13 +28,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         finalText = (TextView) findViewById(R.id.thetext);
         ActivityCompat.requestPermissions(MainActivity.this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 100);
-        GPStracker g = new GPStracker(getApplicationContext());
-        Location l = g.getLocation();
-        if (l != null) {
-            double lat = l.getLatitude();
-            double lon = l.getLongitude();
-            Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
-        }
     }
 
     public void getSpeechInput(View view){
@@ -48,6 +41,15 @@ public class MainActivity extends AppCompatActivity {
             startActivityForResult(intent, 10);}
         else{
             Toast.makeText(this, "Your device does not support speech input", Toast.LENGTH_SHORT).show();
+        }
+
+        GPStracker g = new GPStracker(getApplicationContext());
+        Location l = g.getLocation();
+        System.out.println(l);
+        if (l != null) {
+            double lat = l.getLatitude();
+            double lon = l.getLongitude();
+            Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
         }
     }
 
