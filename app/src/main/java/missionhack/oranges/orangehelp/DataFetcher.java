@@ -45,7 +45,7 @@ public class DataFetcher implements Protocols{
 		}
 	}
 
-	public static String getToken(Occupation occupation) {
+	public static String[] getToken(Occupation occupation) {
 		String token = "";
 		String urlString = getURLFromOccupation(occupation);
 		AsyncTask<String, Void, String> getRequest = new GetClient().execute(urlString);
@@ -56,7 +56,7 @@ public class DataFetcher implements Protocols{
 				Iterator<String> iterator = object.keys();
 				while (iterator.hasNext()) {
 					JSONObject obj = object.getJSONObject(iterator.next());
-					token = obj.getString("Token");
+					token += " " + obj.getString("Token");
 
 				}
 			} catch (JSONException e) {
@@ -67,7 +67,7 @@ public class DataFetcher implements Protocols{
 		} catch (ExecutionException e) {
 			e.printStackTrace();
 		}
-		return token;
+		return token.trim().split(" ");
 	}
 
 	public static String getURLFromOccupation(Occupation occupation){
