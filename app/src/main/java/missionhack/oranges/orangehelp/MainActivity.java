@@ -15,14 +15,15 @@ import android.view.View;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+
 public class MainActivity extends AppCompatActivity implements OnAlertReceivedListener{
-    private TextView finalText;
 
     private static final String TAG = "MainActivity";
     private static final String FIRE_DISTRESS_CALL = "FIRE";
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     FirebaseMessageReceiver messageReceiver;
     AlertSender alertSender;
     Alert alert = Alert.getInstance();
+    private TextView finalText;
     DataFetcher dataFetcher;
 
     @Override
@@ -46,11 +48,6 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         Log.d(TAG, "Creating message receiver");
         messageReceiver = new FirebaseMessageReceiver();
         createToken();
-        /*try {
-            sendAlert();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
     }
 
 
