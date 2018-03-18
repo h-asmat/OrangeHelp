@@ -1,28 +1,28 @@
 package missionhack.oranges.orangehelp;
 
-import android.app.NotificationManager;
-import android.content.Context;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import java.util.Random;
-
 /**
  * Created by Owner on 3/17/2018.
  */
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
+public class FirebaseMessageReceiver extends FirebaseMessagingService {
     private static final String TAG = "MyFBMessagingService";
+    private Alert alert = Alert.getInstance();
+
+    public  FirebaseMessageReceiver(){}
+
 
     @Override public void onMessageReceived(RemoteMessage remoteMessage)
     {
 
         Log.d(TAG, "Message received!!! [" + remoteMessage.getData() + "]");
+        if (alert != null) {
+            alert.setAlertMessage(remoteMessage.getData().toString());
+        }
 /*
         //notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         //Setting up Notification channels for android O and above

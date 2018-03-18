@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "358244299880-hg9jie8ap6kov2131tvn3cagp9glni9j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "missionhack.oranges.orangehelp",
+            "certificate_hash": "e8236da8a95536af2822c598601b9f30ca120e62"
+          }
+        },
+        {
           "client_id": "358244299880-70dt0s26e6dv53oe57lr9aa89jla66ps.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "358244299880-70dt0s26e6dv53oe57lr9aa89jla66ps.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2
