@@ -45,12 +45,9 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         alert.setAlertReceivedListener(this);
         Log.d(TAG, "Creating message receiver");
         messageReceiver = new FirebaseMessageReceiver();
+        Intent serviceIntent = new Intent(MainActivity.this, FirebaseMessageReceiver.class);
+        startService(serviceIntent);
         createToken();
-        /*try {
-            sendAlert();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }*/
     }
 
 
