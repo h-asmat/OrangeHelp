@@ -7,9 +7,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import android.widget.Button;
 import java.util.ArrayList;
 import java.util.Locale;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 
 public class MainActivity extends AppCompatActivity implements OnAlertReceivedListener{
 
@@ -18,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     AlertSender alertSender;
     Alert alert = Alert.getInstance();
     private TextView finalText;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,12 +32,30 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         messageReceiver = new FirebaseMessageReceiver();
         createToken();
         testSendingAlert();
+
+
+        SharedPreferences shp= PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        String token;
+        token = shp.getString("FIREBASETOKEN","");
+        Log.d("khorshid",token);
+
+
+
+        Button btn = (Button)findViewById(R.id.button);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, MapsActivity.class));
+            }
+        });
+
+
     }
 
     private void testSendingAlert() {
         Log.d(TAG, "testSendingAlert: Creating AlertSender and sending it an alert");
         alertSender = new AlertSender();
-        alertSender.sendAlert(alertSender.HILAL_TOKEN, Occupation.Fireman);
+//        alertSender.sendAlert(alertSender.HILAL_TOKEN, Occupation.Fireman);
     }
 
     private void createToken() {
@@ -63,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
             Toast.makeText(this, "Your device does not support speech input", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
