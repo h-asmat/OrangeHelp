@@ -28,7 +28,7 @@ public class AlertSender {
 
     }
 
-    public void sendAlert(final String token, final Occupation occupation){
+    public void sendAlert(final String token, final Occupation occupation, final double latitude, final double longitude){
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -43,9 +43,9 @@ public class AlertSender {
                     conn.setDoInput(true);
 
 
-                    Log.i("JSON", getJsonWithToken(token, occupation));
+                    Log.i("JSON", getJsonWithToken(token, occupation, latitude, longitude));
                     DataOutputStream os = new DataOutputStream(conn.getOutputStream());
-                    os.writeBytes(getJsonWithToken(token, occupation));
+                    os.writeBytes(getJsonWithToken(token, occupation, latitude, longitude));
 
                     os.flush();
                     os.close();
@@ -64,18 +64,20 @@ public class AlertSender {
 
     }
 
-    private String getJsonWithToken(String token, Occupation occupation){
+    private String getJsonWithToken(String token, Occupation occupation, double latitude, double longitude){
         String message = "";
         switch (occupation){
             case Cop:
                 message = "There is a conflict that needs resolution in your area";
                 break;
             case Doctor:
-                message = "There is a patient that needs treatment in your area";
+                message = "There is a patient that needs treatment near you";
                 break;
             case Fireman:
                 message = "There is a fire that needs putting out in your area";
         }
-        return "{ \"to\" : \"" + token +"\", \"data\" : { \"message\" : \"" + message + "\" } }";
+
+        return "{ \"to\" : \"" + token +"\", \"data\" : { \"message\" : \"" + message + "\", \"latitude\" : \"" +
+                latitude + "\", \"longitude\" : \"" + longitude + "\" } }";
     }
 }
