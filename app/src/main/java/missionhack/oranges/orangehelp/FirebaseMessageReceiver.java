@@ -15,13 +15,26 @@ public class FirebaseMessageReceiver extends FirebaseMessagingService {
 
     public  FirebaseMessageReceiver(){}
 
+    private String getMessageFromData(RemoteMessage remoteMessage){
+        String message = remoteMessage.getData().toString().split("=")[1].replace("}", "");
+        return message;
+    }
 
     @Override public void onMessageReceived(RemoteMessage remoteMessage)
     {
 
         Log.d(TAG, "Message received!!! [" + remoteMessage.getData() + "]");
         if (alert != null) {
-            alert.setAlertMessage(remoteMessage.getData().toString());
+            alert.setAlertMessage(getMessageFromData(remoteMessage));
+            if (getMessageFromData(remoteMessage).contains("fire")){
+                alert.setOccupation(Occupation.Fireman);
+            }
+            else if (getMessageFromData(remoteMessage).contains("patient")){
+                alert.setOccupation(Occupation.Doctor);
+            }
+            else if (getMessageFromData(remoteMessage).contains("conflict")){
+                alert.setOccupation(Occupation.Cop);
+            }
         }
 /*
         //notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

@@ -25,7 +25,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity implements OnAlertReceivedListener{
     private TextView finalText;
 
-    Point point;
     private static final String TAG = "MainActivity";
     FirebaseMessageReceiver messageReceiver;
     AlertSender alertSender;
@@ -35,90 +34,22 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button btn_show = (Button) findViewById(R.id.show_popup);
-        btn_show.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
 
-                //Open popup window
-                if (point != null)
-                    showPopup(MainActivity.this, point);
-            }
-        });
         alert.setAlertReceivedListener(this);
         Log.d(TAG, "Creating message receiver");
         messageReceiver = new FirebaseMessageReceiver();
         createToken();
-        /*try {
+        try {
             testSendingAlert();
         } catch (InterruptedException e) {
             e.printStackTrace();
-        }*/
-    }
-
-    // Get the x and y position after the button is draw on screen
-// (It's important to note that we can't get the position in the onCreate(),
-// because at that stage most probably the view isn't drawn yet, so it will return (0, 0))
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-
-        int[] location = new int[2];
-        Button button = (Button) findViewById(R.id.show_popup);
-
-        // Get the x, y location and store it in the location[] array
-        // location[0] = x, location[1] = y.
-        button.getLocationOnScreen(location);
-
-        //Initialize the Point with x, and y positions
-        point = new Point();
-        point.x = location[0];
-        point.y = location[1];
-    }
-
-    // The method that displays the popup.
-    private void showPopup(final Activity context, Point p) {
-        int popupWidth = 200;
-        int popupHeight = 150;
-
-        // Inflate the popup_layout.xml
-        LinearLayout viewGroup = (LinearLayout) context.findViewById(R.id.popup);
-        LayoutInflater layoutInflater = (LayoutInflater) context
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View layout = layoutInflater.inflate(R.layout.alert_popup_layout, viewGroup);
-
-        // Creating the PopupWindow
-        final PopupWindow popup = new PopupWindow(context);
-        popup.setContentView(layout);
-        popup.setWidth(popupWidth);
-        popup.setHeight(popupHeight);
-        popup.setFocusable(true);
-
-        // Some offset to align the popup a bit to the right, and a bit down, relative to button's position.
-        int OFFSET_X = 30;
-        int OFFSET_Y = 30;
-
-        // Clear the default translucent background
-        popup.setBackgroundDrawable(new BitmapDrawable());
-
-        // Displaying the popup at the specified location, + offsets.
-        popup.showAtLocation(layout, Gravity.NO_GRAVITY, p.x + OFFSET_X, p.y + OFFSET_Y);
-
-        // Getting a reference to Close button, and close the popup when clicked.
-        Button close = (Button) layout.findViewById(R.id.close);
-        close.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                popup.dismiss();
-            }
-        });
+        }
     }
 
     private void testSendingAlert() throws InterruptedException {
         Log.d(TAG, "testSendingAlert: Creating AlertSender and sending it an alert");
         alertSender = new AlertSender();
-        Thread.sleep(5000);
-        alertSender.sendAlert(alertSender.HILAL_TOKEN, Occupation.Fireman);
+        alertSender.sendAlert(alertSender.HILAL_TOKEN, Occupation.Doctor);
     }
 
     private void createToken() {
@@ -131,6 +62,8 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     @Override
     public void onAlertReceived() {
         Log.d(TAG, "A message was received and will be toasted!!!!");
+        Intent alertIntent = new Intent(MainActivity.this, DisplayAlertActivity.class);
+        startActivity(alertIntent);
     }
 
     public void getSpeechInput(View view){

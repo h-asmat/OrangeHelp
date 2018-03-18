@@ -9,6 +9,7 @@ import android.util.Log;
 public class Alert {
     private static Alert instance = new Alert();
     private String alertMessage;
+    private Occupation occupation;
     private OnAlertReceivedListener alertListener;
     private static final String TAG = "AlertSingleton";
 
@@ -23,8 +24,21 @@ public class Alert {
         return instance;
     }
 
+    public String getAlertMessage(){
+        return alertMessage;
+    }
     public void setAlertMessage(String alertMessage){
         this.alertMessage = alertMessage;
-        alertListener.onAlertReceived();
+        if (alertListener!=null) {
+            alertListener.onAlertReceived();
+        }
+    }
+
+    public Occupation getOccupation() {
+        return occupation;
+    }
+
+    public void setOccupation(Occupation occupation) {
+        this.occupation = occupation;
     }
 }

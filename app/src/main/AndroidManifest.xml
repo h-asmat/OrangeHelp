@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="missionhack.oranges.orangehelp">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -28,13 +28,13 @@
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
         </service>
-        <service
-            android:name=".FirebaseTokenGenerator">
+        <service android:name=".FirebaseTokenGenerator">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity android:name=".DisplayAlertActivity"></activity>
     </application>
 
 </manifest>

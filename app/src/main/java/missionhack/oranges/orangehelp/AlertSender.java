@@ -71,7 +71,7 @@ public class AlertSender {
                 message = "There is a conflict that needs resolution in your area";
                 break;
             case Doctor:
-                message = "There is a patient that needs treatment in your area";
+                message = "There is a patient that needs treatment near you";
                 break;
             case Fireman:
                 message = "There is a fire that needs putting out in your area";
