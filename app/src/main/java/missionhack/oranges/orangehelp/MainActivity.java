@@ -2,27 +2,35 @@ package missionhack.oranges.orangehelp;
 
 import android.*;
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 
+import android.os.Build;
+import android.preference.PreferenceManager;
 import android.speech.RecognizerIntent;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Locale;
 
+
 public class MainActivity extends AppCompatActivity implements OnAlertReceivedListener{
-    private TextView finalText;
 
     private static final String TAG = "MainActivity";
     private static final String FIRE_DISTRESS_CALL = "FIRE";
@@ -33,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     FirebaseMessageReceiver messageReceiver;
     AlertSender alertSender;
     Alert alert = Alert.getInstance();
+    private TextView finalText;
     DataFetcher dataFetcher;
 
     @Override
@@ -51,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     }
 
 
-    private void sendAlert(String token, Occupation occupation) throws InterruptedException {
+    private void sendAlert(String[] tokens, Occupation occupation) throws InterruptedException {
         Log.d(TAG, "sendAlert: Creating AlertSender and sending it an alert");
         GPStracker g = new GPStracker(getApplicationContext());
         Location l = g.getLocation();
@@ -65,7 +74,9 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         }
 
         alertSender = new AlertSender();
-        alertSender.sendAlert(token, occupation, lat, lon);
+        for(String token: tokens) {
+            alertSender.sendAlert(token, occupation, lat, lon);
+        }
     }
 
     private void createToken() {
@@ -73,13 +84,19 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         FirebaseTokenGenerator service = new FirebaseTokenGenerator();
         Intent serviceIntent = new Intent(this, FirebaseTokenGenerator.class);
         startService(serviceIntent);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
+        Log.d(TAG, "onTokenRefresh, token is:  " + preferences.getString("FIREBASETOKEN", ""));
+
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onAlertReceived() {
         Log.d(TAG, "A message was received and will be toasted!!!!");
-        Intent alertIntent = new Intent(MainActivity.this, DisplayAlertActivity.class);
-        startActivity(alertIntent);
+            Intent alertIntent = new Intent(MainActivity.this, DisplayAlertActivity.class);
+            startActivity(alertIntent);
+
     }
 
     public void getSpeechInput(View view){
@@ -122,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
     }
 
     private void checkWordAgainstDatabase(String word) throws InterruptedException {
-        String token = null;
+        String[] token = null;
         // pass the word from here to the database
         if (word.toUpperCase().equals(FIRE_DISTRESS_CALL.toUpperCase())) {
             try {
@@ -148,7 +165,8 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
                 e.printStackTrace();
             }
         }
-        Log.d(TAG, "onActivityResult: TOKEN IS: " + token);
+
+        Log.d(TAG, "onActivityResult: TOKENS OF DEVICES TO SEND TO ARE: " + token);
         if (token!=null) {
             sendAlert(token, occupation);
         }
