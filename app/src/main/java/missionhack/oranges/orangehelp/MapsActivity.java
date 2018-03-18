@@ -68,8 +68,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .position(destination)
                 .title("Crisis")
                 .icon(getAppropriateResource()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(astronaut,2.0f));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(destination,2.0f));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(astronaut,17.0f));
+
 
     }
 
