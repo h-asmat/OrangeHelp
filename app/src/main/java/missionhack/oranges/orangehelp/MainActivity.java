@@ -26,6 +26,8 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -70,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         if (l != null) {
             lat = l.getLatitude();
             lon = l.getLongitude();
-            Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
+            // Toast.makeText(getApplicationContext(), "LAT: "+lat+"\n LON: "+lon, Toast.LENGTH_LONG).show();
         }
 
         alertSender = new AlertSender();
@@ -85,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements OnAlertReceivedLi
         Intent serviceIntent = new Intent(this, FirebaseTokenGenerator.class);
         startService(serviceIntent);
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
+        Log.d("Firebase", "token "+ FirebaseInstanceId.getInstance().getToken());
         Log.d(TAG, "onTokenRefresh, token is:  " + preferences.getString("FIREBASETOKEN", ""));
 
     }
