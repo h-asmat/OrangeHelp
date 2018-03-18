@@ -18,9 +18,9 @@ Get emergency help from people around you. On new planet, we want people around 
 
 •    Everyone has the android app installed and they know the 3 magic words
 
-•    Our database has everyone’s skills (we got it when they boarded the
+•    Our database has everyone’s skills (we got it when they boarded the spaceship :p)
 
-       spaceship :p)
+
 ### Instructions
 
 
