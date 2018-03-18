@@ -22,10 +22,9 @@ import java.net.URL;
 
 public class AlertSender {
 
-    private String HILAL_TOKEN = "fyQa7XfLySE:APA91bGLifXle1e18WJ2B9_Ize_K05dYlxX2IiBQEtm5JT0wKk8zQ86KetioivHkWxacJQLhpEbs1goAHnWbaOZEQwDJn7ROdgIDmw_qDP2-fkYmfPuofgXjOEAbCA4aOA8eArBtLffw";
+    public String HILAL_TOKEN = "fyQa7XfLySE:APA91bGLifXle1e18WJ2B9_Ize_K05dYlxX2IiBQEtm5JT0wKk8zQ86KetioivHkWxacJQLhpEbs1goAHnWbaOZEQwDJn7ROdgIDmw_qDP2-fkYmfPuofgXjOEAbCA4aOA8eArBtLffw";
 
     public AlertSender(){
-        sendAlert(HILAL_TOKEN, Occupation.Doctor);
 
     }
 
