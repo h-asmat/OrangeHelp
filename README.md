@@ -42,3 +42,5 @@ https://www.flaticon.com/free-icon/fire_394631#term=fire&page=1&position=14
 https://www.flaticon.com/free-icon/siren_550057#term=siren&page=1&position=31
 
 https://www.flaticon.com/free-icon/astronaut_124625#term=astronaut&page=1&position=42
+
+https://www.flaticon.com/free-icon/medical-kit_119077#term=medical&page=1&position=60
